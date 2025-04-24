@@ -8,14 +8,16 @@ class AddNewBookTextFormField extends StatelessWidget {
   int? minline;
   double? height;
   TextInputType? txtInputType;
+  TextEditingController? controller;
   AddNewBookTextFormField({
     super.key,
-    required this.validator,
+    this.validator,
     required this.onSaved,
     this.height,
     this.maxline,
     this.txtInputType,
     this.minline,
+    this.controller
     // required this.bookTitle
   });
 
@@ -23,6 +25,7 @@ class AddNewBookTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return TextFormField(
+      controller: controller,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       minLines: minline,
       keyboardType: txtInputType,

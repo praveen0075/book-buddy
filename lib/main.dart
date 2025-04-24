@@ -12,23 +12,24 @@ String bookHiveBoxName = "book_box";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-
   if (!Hive.isAdapterRegistered(BookModelAdapter().typeId)) {
     Hive.registerAdapter(BookModelAdapter());
   }
+  //  await Hive.openBox(bookHiveBoxName);
 
-  await Hive.openBox<BookModel>(bookHiveBoxName);
+  final bookBox = await Hive.openBox<BookModel>(bookHiveBoxName);
 
-  runApp(const MyApp());
+  runApp(MyApp(bookBox: bookBox));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  Box<BookModel> bookBox;
+  MyApp({super.key, required this.bookBox});
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => BookServicves()),
+        ChangeNotifierProvider(create: (context) => BookServicves(bookBox)),
         ChangeNotifierProvider(
           create: (context) => CoverImageSelection(coverpages),
         ),

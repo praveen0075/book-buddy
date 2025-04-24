@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:book_buddy/const.dart';
+import 'package:book_buddy/models/book_model.dart';
+import 'package:book_buddy/provider/book_services.dart';
 import 'package:book_buddy/provider/cover_image_selection.dart';
 import 'package:book_buddy/utils/addnewbook_textformfield.dart';
 import 'package:book_buddy/utils/custom_appbar.dart';
@@ -12,7 +14,7 @@ String bookTitle = "";
 String autherName = "";
 String description = "";
 String imageURl = "";
-String totalPages = "";
+int totalPages = 0;
 
 class AddNewbookPage extends StatefulWidget {
   const AddNewbookPage({super.key});
@@ -22,13 +24,57 @@ class AddNewbookPage extends StatefulWidget {
 }
 
 class _AddNewbookPageState extends State<AddNewbookPage> {
-  void onButtonPressed() {
+  TextEditingController titleController = TextEditingController();
+  TextEditingController authorController = TextEditingController();
+  TextEditingController totalPageNumberController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  void onButtonPressed(BookServicves bookServices) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      if (imageURl == "") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Cover Page is not Selected"),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      } else {
+        int timeStamp = DateTime.now().millisecondsSinceEpoch;
+        log("Book title is $bookTitle");
+        log("Book author is $autherName");
+        log("Book descritpion is $description");
 
-      log(bookTitle);
-      log(autherName);
-      log(description);
+        final bookModel = BookModel(
+          id: timeStamp.toString(),
+          title: bookTitle,
+          authorName: autherName,
+          totalNumberOfPages: totalPages,
+          pagesRead: 0,
+          bookStatus: "ongoing",
+          imageUrl: imageURl,
+        );
+        try {
+          bookServices.addBook(bookModel);
+          titleController.clear();
+          authorController.clear();
+          totalPageNumberController.clear();
+          descriptionController.clear();
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Successfully added the book"),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        } catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Failed to add the book"),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      }
     }
   }
 
@@ -76,6 +122,7 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 AddNewBookTextFormField(
+                  controller: titleController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please enter the title";
@@ -92,6 +139,7 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 AddNewBookTextFormField(
+                  controller: authorController,
                   // maxline: 80,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -100,7 +148,7 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
                     return null;
                   },
                   onSaved: (newValue) {
-                    bookTitle = newValue!;
+                    autherName = newValue!;
                   },
                 ),
                 kh10,
@@ -109,6 +157,7 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 AddNewBookTextFormField(
+                  controller: totalPageNumberController,
                   txtInputType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -118,7 +167,8 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
                     }
                   },
                   onSaved: (newValue) {
-                    totalPages = newValue!;
+                    int number = int.parse(newValue!);
+                    totalPages = number;
                   },
                 ),
                 kh10,
@@ -127,17 +177,18 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 AddNewBookTextFormField(
+                  controller: descriptionController,
                   minline: 4,
                   maxline: 250,
                   height: 200,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter the description";
-                    }
-                    return null;
+                    // if (value == null || value.isEmpty) {
+                    //   return "Please enter the description";
+                    // }
+                    // return null;
                   },
-                  onSaved: (newValue) { 
-                    bookTitle = newValue!;
+                  onSaved: (newValue) {
+                    description = newValue!;
                   },
                 ),
                 kh10,
@@ -147,7 +198,7 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
                 ),
                 kh10,
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10), 
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: SizedBox(
                     height: 250,
                     width: mQuery.width,
@@ -155,12 +206,13 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
                       builder: (context, model, child) {
                         return GridView(
                           physics: NeverScrollableScrollPhysics(),
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 10,
-                            childAspectRatio: 1.1,
-                            crossAxisSpacing: 5,
-                          ),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 10,
+                                childAspectRatio: 1.1,
+                                crossAxisSpacing: 5,
+                              ),
                           children: List.generate(model.coverPageUrl.length, (
                             index,
                           ) {
@@ -200,7 +252,8 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
                                         child: Container(
                                           padding: EdgeInsets.all(4),
                                           decoration: BoxDecoration(
-                                            color: Theme.of(context).primaryColor,
+                                            color:
+                                                Theme.of(context).primaryColor,
                                             shape: BoxShape.circle,
                                           ),
                                           child: Icon(
@@ -222,20 +275,24 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
                 ),
                 // kh20,
                 // kh20,
-                GestureDetector(
-                  onTap: () {
-                    onButtonPressed();
+                Consumer<BookServicves>(
+                  builder: (context, bookServicves, child) {
+                    return GestureDetector(
+                      onTap: () {
+                        onButtonPressed(bookServicves);
+                      },
+                      child: CustomButtton1(
+                        btnTxt: "Submit",
+                        color: appBaseClr,
+                        txtStyle: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                        buttonWidth: mQuery.width,
+                      ),
+                    );
                   },
-                  child: CustomButtton1(
-                    btnTxt: "Submit",
-                    color: appBaseClr,
-                    txtStyle: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                    buttonWidth: mQuery.width,
-                  ),
                 ),
               ],
             ),
