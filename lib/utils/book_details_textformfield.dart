@@ -3,13 +3,21 @@ import 'package:flutter/material.dart';
 class BookDetailsTextFormField extends StatelessWidget {
   int? maxLine;
   double? height;
-  BookDetailsTextFormField({super.key, this.maxLine,this.height});
+  String? initValue;
+  void Function(String?)? onSaved;
+  String? Function(String?)? validator;
+  TextInputType? keyBoardType;
+  // TextEditingController? controller;
+  BookDetailsTextFormField({super.key, this.maxLine,this.height,this.initValue,this.onSaved,this.validator,this.keyBoardType});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: height ?? 55,
       child: TextFormField(
+        keyboardType: keyBoardType,
+        // controller: controller,
+        initialValue: initValue,
         maxLines: maxLine,
         decoration: InputDecoration(
           errorBorder: OutlineInputBorder(),
@@ -19,8 +27,8 @@ class BookDetailsTextFormField extends StatelessWidget {
           filled: true,
           fillColor: Colors.white,
         ),
-        validator: (value) {},
-        onSaved: (newValue) {},
+        validator: validator,
+        onSaved: onSaved,
       ),
     );
   }

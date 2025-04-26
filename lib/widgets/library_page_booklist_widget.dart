@@ -1,10 +1,17 @@
 import 'package:book_buddy/const.dart';
+import 'package:book_buddy/models/book_model.dart';
+import 'package:book_buddy/pages/book_details_page.dart';
 import 'package:book_buddy/utils/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
 class LibraryPageBooklistWidget extends StatelessWidget {
   String pageTitle;
-  LibraryPageBooklistWidget({super.key, required this.pageTitle});
+  List<BookModel> bookModel;
+  LibraryPageBooklistWidget({
+    super.key,
+    required this.pageTitle,
+    required this.bookModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +31,27 @@ class LibraryPageBooklistWidget extends StatelessWidget {
         padding: EdgeInsets.zero,
         itemBuilder:
             (context, index) => ListTile(
+              onTap:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) =>
+                              BookDetailsPage(bookModel: bookModel[index]),
+                    ),
+                  ),
               leading: SizedBox(
                 height: 55,
                 width: 55,
                 // color: Colors.blue,
-                child: Image.asset("assets/images/litebrowncoverpage.png"),
+                child: Image.asset(bookModel[index].imageUrl),
               ),
               title: Text(
-                "Atomic habit",
+                bookModel[index].title,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               subtitle: Text(
-                "James clear",
+                bookModel[index].authorName,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black54,
@@ -54,7 +70,7 @@ class LibraryPageBooklistWidget extends StatelessWidget {
         //   // ),
         // ),
         separatorBuilder: (context, index) => kh10,
-        itemCount: 10,
+        itemCount: bookModel.length,
       ),
     );
   }

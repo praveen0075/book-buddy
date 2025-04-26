@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:book_buddy/const.dart';
 import 'package:book_buddy/models/book_model.dart';
 import 'package:book_buddy/pages/add_newbook_page.dart';
@@ -19,6 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<BookModel> allBooks = [];
   void onTap2FunctionOfOnLongPress(
     BuildContext context,
     BookServicves value,
@@ -65,11 +68,11 @@ class _HomePageState extends State<HomePage> {
           titleWidget: Text("Options"),
           listTitle1: Text("Edit"),
           listTilte2: Text("Delete", style: TextStyle(color: Colors.red)),
-          onTap1:
-              () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => BookDetailsPage()),
-              ),
+          onTap1: () {},
+          // () => Navigator.push(
+          //   // context,
+          //   // MaterialPageRoute(builder: (context) => BookDetailsPage()),
+          // ),
           onTap2: () {
             onTap2FunctionOfOnLongPress(context, value, bookValue);
           },
@@ -81,7 +84,7 @@ class _HomePageState extends State<HomePage> {
   // void onTapOnTile(
   @override
   Widget build(BuildContext context) {
-    var pIndicatorValue = 12 / 50;
+    // var pIndicatorValue = 12 / 50;
     var mQuery = MediaQuery.of(context).size;
     return Scaffold(
       // backgroundColor: appScaffoldBackgroundColor,
@@ -114,12 +117,18 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Consumer<BookServicves>(
         builder: (context, value, child) {
+          allBooks =
+              value.books
+                  .where((element) => element.bookStatus != "Completed")
+                  .toList();
+          log(allBooks.toString());
           // value.initialize();
-          return value.books.isEmpty
+          return allBooks.isEmpty
               ? Center(child: Text("No data available"))
               : ListView.separated(
                 itemBuilder: (context, index) {
                   // final book = value.books[index];
+                  
                   return Slidable(
                     endActionPane: ActionPane(
                       motion: ScrollMotion(),
@@ -152,7 +161,10 @@ class _HomePageState extends State<HomePage> {
                           () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BookDetailsPage(),
+                              builder:
+                                  (context) => BookDetailsPage(
+                                    bookModel: allBooks[index],
+                                  ),
                             ),
                           ),
                       onLongPress:
@@ -165,10 +177,10 @@ class _HomePageState extends State<HomePage> {
                         height: 55,
                         width: 55,
                         // color: Colors.blue,
-                        child: Image.asset(value.books[index].imageUrl),
+                        child: Image.asset(allBooks[index].imageUrl),
                       ),
                       title: Text(
-                        value.books[index].title,
+                        allBooks[index].title,
                         // value.books[index].title,
                         style: homePageBooksNameTextStyle,
                       ),
@@ -179,7 +191,9 @@ class _HomePageState extends State<HomePage> {
                         valueColor: AlwaysStoppedAnimation(
                           const Color.fromARGB(255, 159, 80, 167),
                         ),
-                        value: pIndicatorValue,
+                        value:
+                            allBooks[index].pagesRead /
+                            allBooks[index].totalNumberOfPages,
                         // trackGap: 2.5,
                       ),
                       trailing: Column(
@@ -187,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Text(
                             // value.books[index].pagesRead.toString()
-                            "${value.books[index].pagesRead}/${value.books[index].totalNumberOfPages}",
+                            "${allBooks[index].pagesRead}/${allBooks[index].totalNumberOfPages}",
                             // style: homePagebookPageCountTextStyle,
                           ),
                           Text("Pages"),
@@ -199,7 +213,7 @@ class _HomePageState extends State<HomePage> {
                 separatorBuilder: (context, index) {
                   return kh10;
                 },
-                itemCount: value.books.length,
+                itemCount: allBooks.length,
               );
         },
       ),

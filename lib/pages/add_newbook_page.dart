@@ -50,7 +50,8 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
           authorName: autherName,
           totalNumberOfPages: totalPages,
           pagesRead: 0,
-          bookStatus: "ongoing",
+          description: description,
+          bookStatus: "Ongoing",
           imageUrl: imageURl,
         );
         try {
