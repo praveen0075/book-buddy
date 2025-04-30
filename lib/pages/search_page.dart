@@ -130,7 +130,7 @@ class _SearchPageState extends State<SearchPage> {
                     final book = filteredBooks[index];
                     return ListTile(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => BookDetailsPage(bookModel:book),));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => BookDetailsPage(bookModel:book,bookIndexNumber: index,),));
                       },
                       onLongPress: () => _showDeleteDialog(book.id),
                       leading: SizedBox(

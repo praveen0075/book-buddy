@@ -163,6 +163,7 @@ class _HomePageState extends State<HomePage> {
                             MaterialPageRoute(
                               builder:
                                   (context) => BookDetailsPage(
+                                    bookIndexNumber: index,
                                     bookModel: allBooks[index],
                                   ),
                             ),

@@ -29,7 +29,7 @@ class BookModel {
   final String? description;
 
   @HiveField(8)
-  final bool? favorite;
+  final bool favorite;
 
   BookModel({
     required this.id,
@@ -40,6 +40,6 @@ class BookModel {
     required this.bookStatus,
     required this.imageUrl,
     this.description,
-    this.favorite
+    required this.favorite
   });
 }

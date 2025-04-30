@@ -12,7 +12,12 @@ import 'package:provider/provider.dart';
 
 class BookDetailsPage extends StatefulWidget {
   BookModel bookModel;
-  BookDetailsPage({super.key, required this.bookModel});
+  int bookIndexNumber;
+  BookDetailsPage({
+    super.key,
+    required this.bookModel,
+    required this.bookIndexNumber,
+  });
 
   @override
   State<BookDetailsPage> createState() => _BookDetailsPageState();
@@ -74,18 +79,9 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                     ? "Completed"
                     : selectedValue!,
             imageUrl: widget.bookModel.imageUrl,
+            favorite: widget.bookModel.favorite,
           );
           try {
-            // if (int.parse(newBooknumberOfPageRead )> widget.bookModel.totalNumberOfPages) {
-            //   ScaffoldMessenger.of(context).showSnackBar(
-            //     SnackBar(
-            //       content: Text(
-            //         "Number of page you have read is greater than total number of pages",
-            //       ),
-            //     ),
-            //   );
-            // }
-
             bookServices.updateBook(bookModel);
             Navigator.pop(context);
             ScaffoldMessenger.of(
@@ -113,6 +109,36 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
       appBar: PreferredSize(
         preferredSize: Size(mQuery.width, mQuery.height / 14),
         child: CustomAppBar(
+          actionWidget: [
+            Consumer<BookServicves>(
+              builder: (context, value, child) {
+                final currentBook = value.books.firstWhere(
+                  (book) => book.id == widget.bookModel.id,
+                  orElse: () => widget.bookModel,
+                );
+                return IconButton(
+                  onPressed: () {
+                    log(widget.bookModel.favorite.toString());
+                    value.changeIsFavorite(currentBook);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          currentBook.favorite
+                              ? "Removed from favorites"
+                              : "Added to favorites",
+                        ),
+                        duration: Duration(seconds: 1),
+                      ),
+                    );
+                  },
+                  icon: Icon(
+                    Icons.favorite,
+                    color: currentBook.favorite ? Colors.red : Colors.white,
+                  ),
+                );
+              },
+            ),
+          ],
           titleText: Text(
             "Book Details",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),

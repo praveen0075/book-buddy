@@ -16,8 +16,9 @@ void main() async {
     Hive.registerAdapter(BookModelAdapter());
   }
   //  await Hive.openBox(bookHiveBoxName);
-
   final bookBox = await Hive.openBox<BookModel>(bookHiveBoxName);
+  // final bookBox = await Hive.openBox<BookModel>(bookHiveBoxName);
+
 
   runApp(MyApp(bookBox: bookBox));
 }

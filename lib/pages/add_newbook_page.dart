@@ -53,6 +53,7 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
           description: description,
           bookStatus: "Ongoing",
           imageUrl: imageURl,
+          favorite: false
         );
         try {
           bookServices.addBook(bookModel);

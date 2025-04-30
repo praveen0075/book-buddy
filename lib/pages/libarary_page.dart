@@ -97,15 +97,15 @@ class _LibararyPageState extends State<LibararyPage> {
                             MaterialPageRoute(
                               builder:
                                   (context) => LibraryPageBooklistWidget(
-                                    bookModel: value.books,
+                                    bookModel: value.favoriteBooks,
                                     pageTitle: "Favourites",
                                   ),
                             ),
                           ),
                       child: LibraryItemsWidget(
                         titleText: "Favourites",
-                        bookcount: "${allBooks.length}",
-                        iconData: Icons.favorite_border_outlined,
+                        bookcount: "${value.favoriteBooks.length}",
+                        iconData: Icons.favorite_border_outlined, 
                       ),
                     ),
                     // kh10,

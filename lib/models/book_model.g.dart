@@ -25,7 +25,7 @@ class BookModelAdapter extends TypeAdapter<BookModel> {
       bookStatus: fields[5] as String,
       imageUrl: fields[6] as String,
       description: fields[7] as String?,
-      favorite: fields[8] as bool?,
+      favorite: fields[8] as bool,
     );
   }
 

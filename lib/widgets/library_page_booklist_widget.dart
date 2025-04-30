@@ -37,7 +37,7 @@ class LibraryPageBooklistWidget extends StatelessWidget {
                     MaterialPageRoute(
                       builder:
                           (context) =>
-                              BookDetailsPage(bookModel: bookModel[index]),
+                              BookDetailsPage(bookModel: bookModel[index],bookIndexNumber: index,),
                     ),
                   ),
               leading: SizedBox(
