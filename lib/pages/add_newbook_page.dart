@@ -31,10 +31,15 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
   void onButtonPressed(BookServicves bookServices) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+     
       if (imageURl == "") {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text("Cover Page is not Selected"),
+            backgroundColor: Colors.red,
+            content: Text(
+              "Book Cover Page is not Selected",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             duration: Duration(seconds: 2),
           ),
         );
@@ -51,9 +56,9 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
           totalNumberOfPages: totalPages,
           pagesRead: 0,
           description: description,
-          bookStatus: "Ongoing",
+          bookStatus: "Want To Read",
           imageUrl: imageURl,
-          favorite: false
+          favorite: false,
         );
         try {
           bookServices.addBook(bookModel);
@@ -61,17 +66,25 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
           authorController.clear();
           totalPageNumberController.clear();
           descriptionController.clear();
+          imageURl = "";
+         
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text("Successfully added the book"),
+              backgroundColor: Colors.green,
+              content: Text("Successfully added the book",style: TextStyle(fontWeight: FontWeight.bold),),
               duration: Duration(seconds: 2),
             ),
           );
+         
         } catch (e) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text("Failed to add the book"),
+              backgroundColor: Colors.red,
+              content: Text(
+                "Failed to add the book",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               duration: Duration(seconds: 2),
             ),
           );

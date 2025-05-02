@@ -73,7 +73,7 @@ class _SearchPageState extends State<SearchPage> {
         children: [
           const SizedBox(height: 20),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(left: 10,right: 10,top: 17),
             child: Container(
               height: 50,
               decoration: BoxDecoration(
@@ -130,7 +130,7 @@ class _SearchPageState extends State<SearchPage> {
                     final book = filteredBooks[index];
                     return ListTile(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => BookDetailsPage(bookModel:book,bookIndexNumber: index,),));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => BookDetailsPage(popIdentifierString: "Search",bookModel:book,bookIndexNumber: index,),));
                       },
                       onLongPress: () => _showDeleteDialog(book.id),
                       leading: SizedBox(

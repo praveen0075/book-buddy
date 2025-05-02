@@ -13,7 +13,8 @@ const homePageBooksNameTextStyle = TextStyle(
   fontSize: 20,
 );
 
-const homePagebookPageCountTextStyle = TextStyle(
+TextStyle homePagebookPageCountTextStyle = TextStyle(
   fontSize: 15,
   fontWeight: FontWeight.bold,
+  color: Colors.black38
 );

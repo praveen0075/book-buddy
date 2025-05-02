@@ -14,7 +14,7 @@ class CoverImageSelection with ChangeNotifier {
     selectedIndex = selectedIndex == index ? null : index;
     notifyListeners();
   }
-
+  
   void clearSelection() {
     selectedIndex = null;
     notifyListeners();

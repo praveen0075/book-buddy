@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:book_buddy/const.dart';
 import 'package:book_buddy/models/book_model.dart';
 import 'package:book_buddy/provider/book_services.dart';
+import 'package:book_buddy/styles/textstyles.dart';
 import 'package:book_buddy/utils/book_details_textformfield.dart';
 import 'package:book_buddy/utils/custom_appbar.dart';
 import 'package:book_buddy/utils/custom_buttton1.dart';
@@ -13,10 +14,12 @@ import 'package:provider/provider.dart';
 class BookDetailsPage extends StatefulWidget {
   BookModel bookModel;
   int bookIndexNumber;
+  String popIdentifierString;
   BookDetailsPage({
     super.key,
     required this.bookModel,
     required this.bookIndexNumber,
+    required this.popIdentifierString,
   });
 
   @override
@@ -64,6 +67,11 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           log(newBooknumberOfPageRead);
           log(widget.bookModel.totalNumberOfPages.toString());
           log(widget.bookModel.bookStatus);
+          // if (int.parse(newBooknumberOfPageRead) != 0 &&
+          //     int.parse(newBooknumberOfPageRead) !=
+          //         widget.bookModel.totalNumberOfPages) {
+          //   selectedValue = "Ongoing";
+          // }
           final bookModel = BookModel(
             id: widget.bookModel.id,
             title: newbookTile,
@@ -74,29 +82,94 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                     ? widget.bookModel.totalNumberOfPages
                     : int.parse(newBooknumberOfPageRead),
             bookStatus:
-                int.parse(newBooknumberOfPageRead) ==
-                        widget.bookModel.totalNumberOfPages
-                    ? "Completed"
-                    : selectedValue!,
+                // int.parse(newBooknumberOfPageRead) ==
+                //         widget.bookModel.totalNumberOfPages
+                //     ? "Completed"
+                //     :
+                selectedValue!,
             imageUrl: widget.bookModel.imageUrl,
             favorite: widget.bookModel.favorite,
           );
           try {
             bookServices.updateBook(bookModel);
+            bookServices.updateBookCategories(bookServices.books);
             Navigator.pop(context);
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text("Successfully updated")));
+            if (bookModel.bookStatus == "Completed") {
+              showDialog(
+                context: context,
+                builder:
+                    (context) => AlertDialog(
+                      content: SizedBox(
+                        height: 200,
+                        child: Column(
+                          children: [
+                            Text(
+                              "Congratulations",
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              "🥳",
+                              style: TextStyle(
+                                fontSize: 65,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              textAlign: TextAlign.center,
+                              "You have Successfully completed the book",
+                              style: TextStyle(
+                                color: Colors.grey.shade700,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      //  content: SizedBox(
+                      //   height: 300,
+                      //    child: Column(
+                      //     children: [
+                      //         Text("Congratulations 🥳",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                      //         Text("You have completed the book",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                      //     ],
+                      //    ),
+                      //  ),
+                    ),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    "Successfully updated",
+                    style: snackBarTextStyle,
+                  ),
+                  backgroundColor: Colors.green,
+                ),
+              );
+            }
           } catch (e) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text("Something went wrong")));
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("Something went wrong", style: snackBarTextStyle),
+                backgroundColor: Colors.red,
+              ),
+            );
           }
         }
       } catch (e) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text("Enterd value is not a number")));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              "Enterd value is not a number",
+              style: snackBarTextStyle,
+            ),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     }
   }
@@ -125,7 +198,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                         content: Text(
                           currentBook.favorite
                               ? "Removed from favorites"
-                              : "Added to favorites",
+                              : "Added to favorites", style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         duration: Duration(seconds: 1),
                       ),
@@ -149,7 +222,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
       body: Form(
         key: _formKey,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(13),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

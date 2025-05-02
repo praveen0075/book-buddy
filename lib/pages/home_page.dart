@@ -9,6 +9,7 @@ import 'package:book_buddy/styles/home_page_sytles.dart';
 import 'package:book_buddy/utils/custom_alertdialog.dart';
 import 'package:book_buddy/utils/custom_appbar.dart';
 import 'package:book_buddy/utils/custom_delete_alertbox.dart';
+import 'package:book_buddy/widgets/homepage_book_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -125,96 +126,131 @@ class _HomePageState extends State<HomePage> {
           // value.initialize();
           return allBooks.isEmpty
               ? Center(child: Text("No data available"))
-              : ListView.separated(
-                itemBuilder: (context, index) {
-                  // final book = value.books[index];
-                  
-                  return Slidable(
-                    endActionPane: ActionPane(
-                      motion: ScrollMotion(),
-                      children: [
-                        // SlidableAction(
-                        //   onPressed: (context) {},
-                        //   flex: 2,
-                        //   icon: Icons.edit,
+              : Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    // final book = value.books[index];
 
-                        //   // label: "",
-                        // ),
-                        SlidableAction(
-                          onPressed: (context) {},
-                          icon: Icons.delete,
-                          backgroundColor: Colors.red,
-                          // label: "",
-                        ),
-                      ],
-                    ),
-                    child: ListTile(
-                      // onTap:
-                      //     () => onTapOnTile(
-                      //       context,
-                      //       "assets/images/litebrowncoverpage.png",
-                      //       "The Power",
-                      //       "Unkown",
-                      //       "something a description but description is not something",
-                      //     ),
+                    return GestureDetector(
+                      // onLongPress:
+                      // () => showBottomSheet(
+                      //   context: context,
+                      //   builder:
+                      //       (context) => ListTile(
+                      //         title: Text("Delete"),
+                      //         trailing: Icon(Icons.delete),
+                      //       ),
+                      // ),
+                      //  ()=> showDialog(
+                      //   context: context,
+                      //   builder:
+                      //       (context) =>
+                      //           AlertDialog(content: Row(children: [
+                      //             Text("Delete")
+                      //           ],),),
+                      // ),
                       onTap:
                           () => Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder:
                                   (context) => BookDetailsPage(
+                                    bookModel: value.books[index],
                                     bookIndexNumber: index,
-                                    bookModel: allBooks[index],
+                                    popIdentifierString: "Home",
                                   ),
                             ),
                           ),
-                      onLongPress:
-                          () => onLongPressOnTile(
-                            context,
-                            value,
-                            value.books[index],
-                          ),
-                      leading: SizedBox(
-                        height: 55,
-                        width: 55,
-                        // color: Colors.blue,
-                        child: Image.asset(allBooks[index].imageUrl),
-                      ),
-                      title: Text(
-                        allBooks[index].title,
-                        // value.books[index].title,
-                        style: homePageBooksNameTextStyle,
-                      ),
-                      subtitle: LinearProgressIndicator(
-                        minHeight: 13.6,
-                        borderRadius: BorderRadius.circular(15),
-                        // backgroundColor: appBaseClr,
-                        valueColor: AlwaysStoppedAnimation(
-                          const Color.fromARGB(255, 159, 80, 167),
+                      // child: Slidable(
+                      //   endActionPane: ActionPane(
+                      //     motion: ScrollMotion(),
+                      //     children: [
+                      //       SlidableAction(
+                      //         onPressed: (context) => () {},
+                      //         icon: Icons.delete,
+                      //         backgroundColor: Colors.red,
+                      //         autoClose: true,
+                      //       ),
+                      //     ],
+                      //   ),
+                        child: HomePageBookCardWidget(
+                          allBooks: allBooks,
+                          value: value,
+                          listIndex: index,
                         ),
-                        value:
-                            allBooks[index].pagesRead /
-                            allBooks[index].totalNumberOfPages,
-                        // trackGap: 2.5,
-                      ),
-                      trailing: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            // value.books[index].pagesRead.toString()
-                            "${allBooks[index].pagesRead}/${allBooks[index].totalNumberOfPages}",
-                            // style: homePagebookPageCountTextStyle,
-                          ),
-                          Text("Pages"),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return kh10;
-                },
-                itemCount: allBooks.length,
+                      // ),
+                    );
+                    //     ListTile(
+                    //       // onTap:
+                    //       //     () => onTapOnTile(
+                    //       //       context,
+                    //       //       "assets/images/litebrowncoverpage.png",
+                    //       //       "The Power",
+                    //       //       "Unkown",
+                    //       //       "something a description but description is not something",
+                    //       //     ),
+                    //       onTap:
+                    //           () => Navigator.push(
+                    //             context,
+                    //             MaterialPageRoute(
+                    //               builder:
+                    //                   (context) => BookDetailsPage(
+                    //                     popIdentifierString: "Home",
+                    //                     bookIndexNumber: index,
+                    //                     bookModel: allBooks[index],
+                    //                   ),
+                    //             ),
+                    //           ),
+                    //       onLongPress:
+                    //           () => onLongPressOnTile(
+                    //             context,
+                    //             value,
+                    //             value.books[index],
+                    //           ),
+                    //       leading: SizedBox(
+                    //         height: 55,
+                    //         width: 55,
+                    //         // color: Colors.blue,
+                    //         child: Image.asset(allBooks[index].imageUrl),
+                    //       ),
+                    //       title: Text(
+                    //         allBooks[index].title,
+                    //         // value.books[index].title,
+                    //         style: homePageBooksNameTextStyle,
+                    //       ),
+                    //       subtitle:
+                    // LinearProgressIndicator(
+                    //         minHeight: 13.6,
+                    //         borderRadius: BorderRadius.circular(15),
+                    //         // backgroundColor: appBaseClr,
+                    //         valueColor: AlwaysStoppedAnimation(
+                    //           const Color.fromARGB(255, 159, 80, 167),
+                    //         ),
+                    //         value:
+                    //             allBooks[index].pagesRead /
+                    //             allBooks[index].totalNumberOfPages,
+                    //         // trackGap: 2.5,
+                    //       ),
+                    //       trailing:
+                    // Column(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //           Text(
+                    //             // value.books[index].pagesRead.toString()
+                    //             "${allBooks[index].pagesRead}/${allBooks[index].totalNumberOfPages}",
+                    //             // style: homePagebookPageCountTextStyle,
+                    //           ),
+                    //           Text("Pages"),
+                    //         ],
+                    //       ),
+                    //     );
+                  },
+                  separatorBuilder: (context, index) {
+                    return kh10;
+                  },
+                  itemCount: allBooks.length,
+                ),
               );
         },
       ),

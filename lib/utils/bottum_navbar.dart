@@ -32,7 +32,7 @@ class CustomBottomNavBar extends StatelessWidget {
           GButton(icon: Icons.home, text: "Home"),
           GButton(icon: Icons.search_rounded, text: "Search"),
           GButton(icon: Icons.library_books_outlined, text: "Library"),
-          GButton(icon: Icons.account_circle_outlined, text: "Profile"),
+          // GButton(icon: Icons.account_circle_outlined, text: "Profile"),
           // GButton(icon: Icons.home,text: "Home",),
         ],
       ),

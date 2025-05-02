@@ -1,4 +1,6 @@
 import 'package:book_buddy/const.dart';
+import 'package:book_buddy/pages/home_page.dart';
+import 'package:book_buddy/pages/nav_controlling.dart';
 import 'package:book_buddy/pages/username_input_page.dart';
 import 'package:book_buddy/styles/intro_page_styles.dart';
 import 'package:book_buddy/utils/custom_buttton1.dart';
@@ -59,14 +61,13 @@ class IntroPage extends StatelessWidget {
                   SizedBox(height: 30),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => UserNameInputPage(),
+                          builder: (context) => NavcontrollingPage(),
                         ),
+                        (route) => false,
                       );
-
-
                     },
                     child: CustomButtton1(
                       color: Color.fromARGB(196, 110, 18, 118),

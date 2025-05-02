@@ -80,10 +80,10 @@ class BookServicves extends ChangeNotifier {
     // notifyListeners();
   }
 
-  void updateBook(BookModel bookDetails) async {
+  Future<void> updateBook(BookModel bookDetails) async {
     // final db = Hive.box<BookModel>(bookHiveBoxName);
     // _booksBox.put(bookDetails.id, bookDetails);
-    _booksBox.put(bookDetails.id, bookDetails);
+   await  _booksBox.put(bookDetails.id, bookDetails);
     updateBookCategories(books);
     // notifyListeners();
   }

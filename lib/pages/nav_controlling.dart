@@ -8,7 +8,8 @@ import 'package:book_buddy/utils/bottum_navbar.dart';
 import 'package:flutter/material.dart';
 
 class NavcontrollingPage extends StatefulWidget {
-  const NavcontrollingPage({super.key});
+   NavcontrollingPage({super.key,this.popHelperInt});
+  int? popHelperInt;
 
   @override
   State<NavcontrollingPage> createState() => _NavcontrollingPageState();
@@ -16,13 +17,16 @@ class NavcontrollingPage extends StatefulWidget {
 
 class _NavcontrollingPageState extends State<NavcontrollingPage> {
   int selectedIndex = 0;
-  List pages = [HomePage(), SearchPage(), LibararyPage(), ProfilePage()];
+  List pages = [HomePage(), SearchPage(), LibararyPage()];
 
   void ontapChangeFunction(int indx) {
-    setState(() {
+    
+        setState(() {
       selectedIndex = indx;
     });
     log(selectedIndex.toString());
+    
+  
   }
 
   @override
