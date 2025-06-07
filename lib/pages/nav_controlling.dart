@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:book_buddy/pages/home_page.dart';
 import 'package:book_buddy/pages/libarary_page.dart';
-import 'package:book_buddy/pages/profile_page.dart';
 import 'package:book_buddy/pages/search_page.dart';
 import 'package:book_buddy/utils/bottum_navbar.dart';
 import 'package:flutter/material.dart';

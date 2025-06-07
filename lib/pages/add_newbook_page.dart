@@ -31,7 +31,7 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
   void onButtonPressed(BookServicves bookServices) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-     
+
       if (imageURl == "") {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -67,16 +67,18 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
           totalPageNumberController.clear();
           descriptionController.clear();
           imageURl = "";
-         
+
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.green,
-              content: Text("Successfully added the book",style: TextStyle(fontWeight: FontWeight.bold),),
+              content: Text(
+                "Successfully added the book",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               duration: Duration(seconds: 2),
             ),
           );
-         
         } catch (e) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -105,6 +107,11 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
 
   final _formKey = GlobalKey<FormState>();
 
+  @override
+  void initState() {
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     var mQuery = MediaQuery.of(context).size;
@@ -196,12 +203,7 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
                   minline: 4,
                   maxline: 250,
                   height: 200,
-                  validator: (value) {
-                    // if (value == null || value.isEmpty) {
-                    //   return "Please enter the description";
-                    // }
-                    // return null;
-                  },
+                  validator: (value) {},
                   onSaved: (newValue) {
                     description = newValue!;
                   },
@@ -288,8 +290,6 @@ class _AddNewbookPageState extends State<AddNewbookPage> {
                     ),
                   ),
                 ),
-                // kh20,
-                // kh20,
                 Consumer<BookServicves>(
                   builder: (context, bookServicves, child) {
                     return GestureDetector(

@@ -37,7 +37,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _filterBooks() {
-    setState(() {}); // Trigger rebuild when search text changes
+    setState(() {}); 
   }
 
   List<BookModel> get filteredBooks {

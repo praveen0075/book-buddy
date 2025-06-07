@@ -7,7 +7,6 @@ class BookDetailsTextFormField extends StatelessWidget {
   void Function(String?)? onSaved;
   String? Function(String?)? validator;
   TextInputType? keyBoardType;
-  // TextEditingController? controller;
   BookDetailsTextFormField({super.key, this.maxLine,this.height,this.initValue,this.onSaved,this.validator,this.keyBoardType});
 
   @override
@@ -16,13 +15,10 @@ class BookDetailsTextFormField extends StatelessWidget {
       height: height ?? 55,
       child: TextFormField(
         keyboardType: keyBoardType,
-        // controller: controller,
         initialValue: initValue,
         maxLines: maxLine,
         decoration: InputDecoration(
           errorBorder: OutlineInputBorder(),
-          // errorStyle:,
-          // hintText: "Title",
           border: OutlineInputBorder(borderSide: BorderSide.none),
           filled: true,
           fillColor: Colors.white,

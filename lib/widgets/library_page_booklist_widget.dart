@@ -1,6 +1,5 @@
 import 'package:book_buddy/const.dart';
 import 'package:book_buddy/models/book_model.dart';
-import 'package:book_buddy/pages/book_details_page.dart';
 import 'package:book_buddy/provider/book_services.dart';
 import 'package:book_buddy/utils/custom_appbar.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +46,7 @@ class LibraryPageBooklistWidget extends StatelessWidget {
             default:
               currentBook = bookModel;
           }
-          return currentBook == []
+          return currentBook == [] || currentBook.isEmpty
               ? Center(child: Text("No Books Available"))
               : ListView.separated(
                 padding: EdgeInsets.zero,
@@ -73,18 +72,7 @@ class LibraryPageBooklistWidget extends StatelessWidget {
                           color: Colors.black54,
                         ),
                       ),
-                      // trailing: Text("Completed", style: TextStyle(color: appBaseClr)),
                     ),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   // child: Container(
-                //   //   height: 80,
-                //   //   decoration: BoxDecoration(
-                //   //     borderRadius: BorderRadius.circular(15),
-                //   //     color: Colors.blue
-                //   //   ),
-                //   // ),
-                // ),
                 separatorBuilder: (context, index) => kh10,
                 itemCount: bookModel.length,
               );

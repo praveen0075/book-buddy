@@ -16,9 +16,6 @@ class LibararyPage extends StatefulWidget {
 
 class _LibararyPageState extends State<LibararyPage> {
   List<BookModel> allBooks = [];
-  // List<BookModel> ongoingBooks =[];
-  // List<BookModel> wantToReadBooks =[];
-  // List<BookModel> completedBooks =[];
   @override
   void initState() { 
     super.initState();
@@ -32,21 +29,9 @@ class _LibararyPageState extends State<LibararyPage> {
   Widget build(BuildContext context) {
    
     var mQuery = MediaQuery.of(context).size;
-    //     WidgetsBinding.instance.addPostFrameCallback((_){
-    //   final provider = Provider.of<BookServicves>(context,listen: false);
-    //   allBooks = provider.books;
-    //   provider.addBooksToCategory(allBooks);
-    // });
     return Scaffold(
       backgroundColor: appScaffoldBackgroundColor,
       appBar:
-      //  PreferredSize(
-      //   preferredSize: Size(mQuery.width, mQuery.height / 14),
-      //   child: CustomAppBar(
-      //     titleText: Text("Library", style: homePageAppBartitleTextStyle),
-      //     backgroundColor: appBaseClr,
-      //   ),
-      // ),.
       AppBar(
         title: Text("Library"),
         backgroundColor: appScaffoldBackgroundColor,
@@ -58,7 +43,6 @@ class _LibararyPageState extends State<LibararyPage> {
             
             return Column(
               children: [
-                // kh30,
                 Container(
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
@@ -79,17 +63,9 @@ class _LibararyPageState extends State<LibararyPage> {
                     ],
                   ),
                 ),
-                // kh10,
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 40),
-                //   child: Divider(
-                //     thickness: 0.5,
-                //   ),
-                // ),
                 kh30,
                 Column(
                   children: [
-                    // Divider(),
                     InkWell(
                       onTap:
                           () => Navigator.push(
@@ -108,7 +84,6 @@ class _LibararyPageState extends State<LibararyPage> {
                         iconData: Icons.favorite_border_outlined, 
                       ),
                     ),
-                    // kh10,
                     Divider(),
                     InkWell(
                       onTap:
@@ -129,7 +104,6 @@ class _LibararyPageState extends State<LibararyPage> {
                       ),
                     ),
                     Divider(),
-                    // kh10,
                     InkWell(
                       onTap:
                           () => Navigator.push(
@@ -148,7 +122,6 @@ class _LibararyPageState extends State<LibararyPage> {
                         iconData: Icons.collections_bookmark_outlined,
                       ),
                     ),
-                    // Divider(),
                     kh10,
                     InkWell(
                       onTap:
@@ -168,7 +141,6 @@ class _LibararyPageState extends State<LibararyPage> {
                         iconData: Icons.bookmark_added_outlined,
                       ),
                     ),
-                    // Divider(),
                   ],
                 ),
                 kh40,

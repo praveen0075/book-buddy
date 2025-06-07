@@ -27,10 +27,6 @@ class CustomAlertDialog extends StatelessWidget {
         ListTile(leading: leadingWidget1, title: listTitle1, onTap: onTap1),
         ListTile(leading: leadingWidget2, title: listTilte2, onTap: onTap2),
       ],
-      // actions: [
-      //   ListTile(leading: Icon(Icons.edit),title: Text("Edit"),),
-      //   ListTile(leading: Icon(Icons.delete),title: Text("Delete"),),
-      // ],
     );
   }
 }

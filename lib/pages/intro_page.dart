@@ -1,7 +1,5 @@
 import 'package:book_buddy/const.dart';
-import 'package:book_buddy/pages/home_page.dart';
 import 'package:book_buddy/pages/nav_controlling.dart';
-import 'package:book_buddy/pages/username_input_page.dart';
 import 'package:book_buddy/styles/intro_page_styles.dart';
 import 'package:book_buddy/utils/custom_buttton1.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +23,6 @@ class IntroPage extends StatelessWidget {
                 Image.asset("assets/images/readingbook1.png", width: 340),
               ],
             ),
-            // child: Text("jsldfljllsadjlfjljsdlfjl;jlasjdfljlsdjfljsdl;fjldfjljsdfljljlsadjfljsldjflsjdlfjlsadjfflj"),
           ),
           Positioned(
             right: 0,

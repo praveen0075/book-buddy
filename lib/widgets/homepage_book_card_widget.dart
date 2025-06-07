@@ -53,7 +53,6 @@ class HomePageBookCardWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Container(
-        // height : 200,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(14)),
         child: Slidable(
           endActionPane: ActionPane(
@@ -73,8 +72,6 @@ class HomePageBookCardWidget extends StatelessWidget {
                             style: TextStyle(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start,
                           ),
-
-                          // content: Text("Do you "),
                           actions: [
                             ElevatedButton(
                               style: ButtonStyle(
@@ -102,7 +99,6 @@ class HomePageBookCardWidget extends StatelessWidget {
                 },
                 icon: Icons.delete,
                 backgroundColor: Colors.red,
-                // autoClose: true,
               ),
             ],
           ),
@@ -137,22 +133,16 @@ class HomePageBookCardWidget extends StatelessWidget {
                         SizedBox(
                           width: 180,
                           child: LinearProgressIndicator(
-                            // trackGap: 3.5,
                             minHeight: 13.6,
                             borderRadius: BorderRadius.circular(2),
-                            // backgroundColor: appBaseClr,
                             valueColor: AlwaysStoppedAnimation(
                               const Color.fromARGB(255, 159, 80, 167),
                             ),
                             value:
                                 allBooks[listIndex].pagesRead /
                                 allBooks[listIndex].totalNumberOfPages,
-                            // trackGap: 2.5,
                           ),
                         ),
-                        // Text(
-                        //   "${allBooks[index].pagesRead}/${allBooks[index].totalNumberOfPages}",
-                        // ),
                       ],
                     ),
                   ],
@@ -162,12 +152,10 @@ class HomePageBookCardWidget extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      // Icon(Icons.delete),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            // value.books[index].pagesRead.toString()
                             "${allBooks[listIndex].pagesRead}/${allBooks[listIndex].totalNumberOfPages}",
                             style: homePagebookPageCountTextStyle,
                           ),

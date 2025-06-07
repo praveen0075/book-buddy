@@ -15,11 +15,7 @@ void main() async {
   if (!Hive.isAdapterRegistered(BookModelAdapter().typeId)) {
     Hive.registerAdapter(BookModelAdapter());
   }
-  //  await Hive.openBox(bookHiveBoxName);
   final bookBox = await Hive.openBox<BookModel>(bookHiveBoxName);
-  // final bookBox = await Hive.openBox<BookModel>(bookHiveBoxName);
-
-
   runApp(MyApp(bookBox: bookBox));
 }
 
@@ -37,7 +33,6 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),

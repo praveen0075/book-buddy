@@ -45,7 +45,6 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
     } else {
       selectedValue = statusChoice[2];
     }
-    // selectedValue = widget.bookModel.bookStatus;
     log("selected values is = $selectedValue");
   }
 
@@ -67,11 +66,6 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           log(newBooknumberOfPageRead);
           log(widget.bookModel.totalNumberOfPages.toString());
           log(widget.bookModel.bookStatus);
-          // if (int.parse(newBooknumberOfPageRead) != 0 &&
-          //     int.parse(newBooknumberOfPageRead) !=
-          //         widget.bookModel.totalNumberOfPages) {
-          //   selectedValue = "Ongoing";
-          // }
           final bookModel = BookModel(
             id: widget.bookModel.id,
             title: newbookTile,
@@ -82,10 +76,6 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                     ? widget.bookModel.totalNumberOfPages
                     : int.parse(newBooknumberOfPageRead),
             bookStatus:
-                // int.parse(newBooknumberOfPageRead) ==
-                //         widget.bookModel.totalNumberOfPages
-                //     ? "Completed"
-                //     :
                 selectedValue!,
             imageUrl: widget.bookModel.imageUrl,
             favorite: widget.bookModel.favorite,
@@ -129,15 +119,6 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                           ],
                         ),
                       ),
-                      //  content: SizedBox(
-                      //   height: 300,
-                      //    child: Column(
-                      //     children: [
-                      //         Text("Congratulations 🥳",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                      //         Text("You have completed the book",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                      //     ],
-                      //    ),
-                      //  ),
                     ),
               );
             } else {

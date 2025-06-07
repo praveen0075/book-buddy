@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AddNewBookTextFormField extends StatelessWidget {
-  // String bookTitle;
   String? Function(String?)? validator;
   void Function(String?)? onSaved;
   int? maxline;
@@ -18,7 +17,6 @@ class AddNewBookTextFormField extends StatelessWidget {
     this.txtInputType,
     this.minline,
     this.controller
-    // required this.bookTitle
   });
 
   @override
@@ -32,9 +30,6 @@ class AddNewBookTextFormField extends StatelessWidget {
       maxLines: maxline,
       decoration: InputDecoration(
         errorBorder: OutlineInputBorder(),
-    
-        // errorStyle:TextStyle(height: 0.8),
-        // hintText: "Title",
         border: OutlineInputBorder(borderSide: BorderSide.none),
         filled: true,
         fillColor: Colors.white,

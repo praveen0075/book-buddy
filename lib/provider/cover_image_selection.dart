@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 class CoverImageSelection with ChangeNotifier {
   int? selectedIndex;
   List<String> coverPageUrl;
-  // bool isSelected = false;
   CoverImageSelection(this.coverPageUrl);
 
   String? getSelectedImageUrl() {

@@ -11,7 +11,6 @@ import 'package:book_buddy/utils/custom_appbar.dart';
 import 'package:book_buddy/utils/custom_delete_alertbox.dart';
 import 'package:book_buddy/widgets/homepage_book_card_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -46,8 +45,6 @@ class _HomePageState extends State<HomePage> {
               );
               Navigator.pop(context);
             }
-
-            /// delete the item
           },
           onTap2: () => Navigator.pop(context),
         );
@@ -70,10 +67,6 @@ class _HomePageState extends State<HomePage> {
           listTitle1: Text("Edit"),
           listTilte2: Text("Delete", style: TextStyle(color: Colors.red)),
           onTap1: () {},
-          // () => Navigator.push(
-          //   // context,
-          //   // MaterialPageRoute(builder: (context) => BookDetailsPage()),
-          // ),
           onTap2: () {
             onTap2FunctionOfOnLongPress(context, value, bookValue);
           },
@@ -82,13 +75,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // void onTapOnTile(
   @override
   Widget build(BuildContext context) {
-    // var pIndicatorValue = 12 / 50;
     var mQuery = MediaQuery.of(context).size;
     return Scaffold(
-      // backgroundColor: appScaffoldBackgroundColor,
       floatingActionButton: SizedBox(
         width: 110,
         child: FloatingActionButton(
@@ -123,33 +113,21 @@ class _HomePageState extends State<HomePage> {
                   .where((element) => element.bookStatus != "Completed")
                   .toList();
           log(allBooks.toString());
-          // value.initialize();
           return allBooks.isEmpty
-              ? Center(child: Text("No data available"))
+              ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset("assets/images/no-data.png",width: 40,),
+                    Text("No Books Available"),
+                  ],
+                ),
+              )
               : Padding(
                 padding: const EdgeInsets.only(top: 5),
                 child: ListView.separated(
                   itemBuilder: (context, index) {
-                    // final book = value.books[index];
-
                     return GestureDetector(
-                      // onLongPress:
-                      // () => showBottomSheet(
-                      //   context: context,
-                      //   builder:
-                      //       (context) => ListTile(
-                      //         title: Text("Delete"),
-                      //         trailing: Icon(Icons.delete),
-                      //       ),
-                      // ),
-                      //  ()=> showDialog(
-                      //   context: context,
-                      //   builder:
-                      //       (context) =>
-                      //           AlertDialog(content: Row(children: [
-                      //             Text("Delete")
-                      //           ],),),
-                      // ),
                       onTap:
                           () => Navigator.push(
                             context,
@@ -162,89 +140,12 @@ class _HomePageState extends State<HomePage> {
                                   ),
                             ),
                           ),
-                      // child: Slidable(
-                      //   endActionPane: ActionPane(
-                      //     motion: ScrollMotion(),
-                      //     children: [
-                      //       SlidableAction(
-                      //         onPressed: (context) => () {},
-                      //         icon: Icons.delete,
-                      //         backgroundColor: Colors.red,
-                      //         autoClose: true,
-                      //       ),
-                      //     ],
-                      //   ),
-                        child: HomePageBookCardWidget(
-                          allBooks: allBooks,
-                          value: value,
-                          listIndex: index,
-                        ),
-                      // ),
+                      child: HomePageBookCardWidget(
+                        allBooks: allBooks,
+                        value: value,
+                        listIndex: index,
+                      ),
                     );
-                    //     ListTile(
-                    //       // onTap:
-                    //       //     () => onTapOnTile(
-                    //       //       context,
-                    //       //       "assets/images/litebrowncoverpage.png",
-                    //       //       "The Power",
-                    //       //       "Unkown",
-                    //       //       "something a description but description is not something",
-                    //       //     ),
-                    //       onTap:
-                    //           () => Navigator.push(
-                    //             context,
-                    //             MaterialPageRoute(
-                    //               builder:
-                    //                   (context) => BookDetailsPage(
-                    //                     popIdentifierString: "Home",
-                    //                     bookIndexNumber: index,
-                    //                     bookModel: allBooks[index],
-                    //                   ),
-                    //             ),
-                    //           ),
-                    //       onLongPress:
-                    //           () => onLongPressOnTile(
-                    //             context,
-                    //             value,
-                    //             value.books[index],
-                    //           ),
-                    //       leading: SizedBox(
-                    //         height: 55,
-                    //         width: 55,
-                    //         // color: Colors.blue,
-                    //         child: Image.asset(allBooks[index].imageUrl),
-                    //       ),
-                    //       title: Text(
-                    //         allBooks[index].title,
-                    //         // value.books[index].title,
-                    //         style: homePageBooksNameTextStyle,
-                    //       ),
-                    //       subtitle:
-                    // LinearProgressIndicator(
-                    //         minHeight: 13.6,
-                    //         borderRadius: BorderRadius.circular(15),
-                    //         // backgroundColor: appBaseClr,
-                    //         valueColor: AlwaysStoppedAnimation(
-                    //           const Color.fromARGB(255, 159, 80, 167),
-                    //         ),
-                    //         value:
-                    //             allBooks[index].pagesRead /
-                    //             allBooks[index].totalNumberOfPages,
-                    //         // trackGap: 2.5,
-                    //       ),
-                    //       trailing:
-                    // Column(
-                    //         mainAxisAlignment: MainAxisAlignment.center,
-                    //         children: [
-                    //           Text(
-                    //             // value.books[index].pagesRead.toString()
-                    //             "${allBooks[index].pagesRead}/${allBooks[index].totalNumberOfPages}",
-                    //             // style: homePagebookPageCountTextStyle,
-                    //           ),
-                    //           Text("Pages"),
-                    //         ],
-                    //       ),
-                    //     );
                   },
                   separatorBuilder: (context, index) {
                     return kh10;
